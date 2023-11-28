@@ -1,0 +1,2279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="odd-base_check.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>ediarum.MINUTES.schema</title>
+				<editor>
+					<persName>
+						<surname>Arndt</surname>
+						<forename>Nadine</forename>
+					</persName>
+					<email>nadine.arndt@bbaw.de</email>
+				</editor>
+				<editor>
+					<persName>
+						<surname>Gödel</surname>
+						<forename>Martina</forename>
+					</persName>
+					<email>martina.goedel@bbaw.de</email>
+				</editor>
+				<respStmt n="dh">
+					<orgName>
+						<orgName role="institution" ref="https://www.bbaw.de/">Berlin-Brandenburgische Akademie der Wissenschaften (BBAW)</orgName>
+						<orgName role="department" ref="https://www.bbaw.de/bbaw-digital/telota">TELOTA - The Electronic Life Of The Academy</orgName>
+					</orgName>
+					<resp ref="https://credit.niso.org/contributor-roles/resources/">Ediarum</resp>
+				</respStmt>
+				<respStmt n="dh">
+					<persName>
+						<surname>Arndt</surname> <forename>Nadine</forename>
+						<idno type="orcid">https://orcid.org/0000-0002-2257-7236</idno>
+						<affiliation>BBAW/TELOTA</affiliation>
+					</persName>
+					<resp ref="https://credit.niso.org/contributor-roles/conceptualization/">Projektentwicklung und Konzeption</resp>
+					<resp ref="https://credit.niso.org/contributor-roles/software/" from="2019-05">Erweiterung von ediarum.MINUTES für Projektspezifika ediarum.kabinettsprotokolle.edit (oXygen Framework)</resp>
+				</respStmt>
+				<respStmt n="dh">
+					<persName>
+						<surname>Gödel</surname>
+						<forename>Martina</forename>
+						<idno type="orcid">https://orcid.org/0009-0002-4707-0404</idno>
+						<affiliation>BBAW/TELOTA</affiliation>
+					</persName>
+					<resp ref="https://credit.niso.org/contributor-roles/methodology/" from="2023-03">ODD-Weiterentwicklung für ediarum.MINUTES</resp>
+				</respStmt>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>
+					<ref target="http://www.bbaw.de">Berlin-Brandenburgische Akademie der Wissenschaften</ref>
+					<address>
+						<addrLine>Jägerstraße 22/23, 10117 Berlin</addrLine>
+						<country>Germany</country>
+					</address>
+				</publisher>
+			</publicationStmt>
+			<sourceDesc>
+				<p>Dieses ODD-Dokument basiert auf Ergebnissen und Spezifikationen des TEI-Konsortiums.</p>
+				<p>Dabei ist das ediarum.MINUTES zugrundeliegende TEI-XML-Schema eine (nicht technische) Erweiterung von ediarum.BASE.data-model (hrsg. von Stefan Dumont), welches wiederum weitestgehend auf dem Basisformat des Deutschen Textarchivs basiert.</p>
+			</sourceDesc>
+		</fileDesc>
+	</teiHeader>
+	<text>
+		<body>
+			<schemaSpec ident="ediarum.MINUTES" start="TEI" prefix="tei_" targetLang="en" docLang="en">
+				<!-- required modules -->
+				<moduleRef key="header" except="appInfo application authority cRefPattern calendar calendarDesc catDesc catRef category citeData citeStructure classCode classDecl conversion correction correspAction correspContext correspDesc distributor funder geoDecl handNote hyphenation interpretation keywords listPrefixDef namespace normalization prefixDef principal punctuation quotation refState refsDecl rendition samplingDecl schemaRef scriptNote segmentation seriesStmt sponsor stdVals styleDefDecl tagUsage tagsDecl taxonomy textClass unitDecl unitDef xenoData"/>
+				<moduleRef key="core" except="abbr add analytic author biblScope biblStruct binaryObject cb cit citedRange del distinct divGen ellipsis emph expan gap gb gloss headItem headLabel imprint l lg listBibl measure measureGrp media mentioned milestone monogr noteGrp pb postBox postCode ptr q rb reg rt ruby said soCalled sp speaker stage street teiCorpus textLang unclear unit"/>
+				<moduleRef key="textstructure" except="argument back byline div1 div2 div3 div4 div5 div6 div7 docAuthor docDate docEdition docImprint docTitle epigraph floatingText group imprimatur postscript titlePage titlePart trailer"/>
+				<moduleRef key="tei"/>
+				<!--optional modules in alphabetic order-->
+				<moduleRef key="corpus" except="activity channel constitution derivation domain factuality interaction locale preparedness purpose setting settingDesc textDesc"/>
+				<moduleRef key="figures" except="notatedMusic"/>
+				<moduleRef key="gaiji" except="char charDecl glyph localProp mapping unicodeProp unihanProp"/>
+				<moduleRef key="linking" except="alt altGrp annotation join joinGrp link listAnnotation standOff timeline when"/>
+				<moduleRef key="msdescription" except="accMat acquisition additional additions adminInfo altIdentifier binding bindingDesc catchwords collation colophon condition custEvent custodialHist decoDesc decoNote depth dim dimensions explicit filiation finalRubric foliation handDesc height heraldry history incipit layout layoutDesc locus locusGrp material msDesc msFrag msIdentifier msItem msItemStruct msName msPart musicNotation objectType origDate origPlace origin provenance recordHist rubric scriptDesc seal sealDesc secFol signatures source stamp summary surrogates typeDesc typeNote watermark width"/>
+				<moduleRef key="namesdates" except="addName age birth bloc climate death district education event faith floruit genName gender geo geogFeat geogName langKnowledge langKnown listEvent listNym listOrg listPlace listRelation location nameLink nationality nym occupation offset org persPronouns personGrp persona place population region relation residence roleName settlement sex socecStatus state terrain trait"/>
+				<moduleRef key="spoken" except="annotationBlock broadcast equipment kinesic pause recording recordingStmt scriptStmt shift transcriptionDesc u vocal writing"/>
+				<moduleRef key="tagdocs" except="altIdent alternate anyElement att attDef attList attRef classRef classSpec classes code constraint constraintSpec content dataFacet dataRef dataSpec datatype defaultVal eg egXML elementRef elementSpec empty equiv exemplum gi ident macroRef macroSpec memberOf model modelGrp modelSequence moduleRef moduleSpec outputRendition param paramList paramSpec remarks schemaSpec sequence specDesc specGrp specGrpRef specList tag textNode val valDesc valItem valList"/>
+				<moduleRef key="transcr" except="addSpan am damage damageSpan delSpan ex facsimile fw handNotes handShift line listTranspose metamark mod path redo restore retrace secl sourceDoc space subst substJoin surface surfaceGrp surplus transpose undo zone"/>
+				<!---->
+				<!---->
+				<!--Allow use of @ana, without generally including the module "analysis"-->
+				<classRef key="att.global.analytic"/>
+				<!--exclude attribute classes from general use-->
+				<classSpec ident="att.global.change" type="atts" mode="delete"/>
+				<classSpec ident="att.declarable" type="atts" mode="delete"/>
+				<classSpec ident="att.declaring" type="atts" mode="delete"/>
+				<classSpec ident="att.fragmentable" type="atts" mode="delete"/>
+				<classSpec ident="att.global.source" type="atts" mode="delete"/>
+				<!---->
+				<!---->
+				<!---->
+				<!--element specifications  in alphabetic order -->
+				<elementSpec ident="ab" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>text-align: right</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>text-align: center</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="style" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="opt">
+							<datatype>
+								<dataRef key="teidata.enumerated"/>
+							</datatype>
+							<valList type="semi" mode="change">
+								<valItem ident="head"/>
+								<valItem ident="clause"/>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="abstract" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="addrLine" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="address" mode="change">
+					<attList>
+						<!--att.global @n-->
+						<attDef ident="n" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="sent">
+									<desc>Sender</desc>
+								</valItem>
+								<valItem mode="add" ident="received">
+									<desc>Verteiler, Empfänger</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="anchor" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="comment">
+									<desc>Kommentar (comment)</desc>
+								</valItem>
+								<valItem mode="add" ident="index">
+									<desc>Index (index)</desc>
+								</valItem>
+								<valItem mode="add" ident="authorized">
+									<desc>Autorisierte Textstelle</desc>
+								</valItem>
+								<valItem mode="add" ident="target">
+									<desc>Verweisziel</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.responsibility @resp-->
+						<attDef ident="cert" mode="delete"/>
+						<!--att.global [@n + @xml:id]-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<!--att.global.linking [@prev+@next]-->
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="corresp" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="availability" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="bibl" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global.linking [@sameAs]-->
+						<attDef ident="corresp" mode="delete"/>
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<!--att.global [@n + @xml:id]-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="decision">
+									<desc>Entscheidung (decision)</desc>
+								</valItem>
+								<valItem mode="add" ident="fact_sheet">
+									<desc>Datenblatt (fact sheet)</desc>
+								</valItem>
+								<valItem mode="add" ident="more_info">
+									<desc>zusätzliche Informationen (more info)</desc>
+								</valItem>
+								<valItem mode="add" ident="template">
+									<desc>Vorlage (template)</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="biblFull" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.linking"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global.linking[@corresp]-->
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="status" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="published">
+									<desc>Druck bereits veröffentlicht</desc>
+								</valItem>
+								<valItem mode="add" ident="publication_process">
+									<desc>Daten für den Druck sind beim Verlag, Dateien auf Website veröffentlicht</desc>
+								</valItem>
+								<valItem mode="add" ident="not_published">
+									<desc>Daten unkommentiert veröffentlicht/Erste Vorveröffentlichung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="body" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global [@n + @xml:id]-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="cell" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global.rendition-->
+						<attDef ident="style" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="above">
+									<desc>Rahmenlinie oben</desc>
+								</valItem>
+								<valItem mode="add" ident="below">
+									<desc>Rahmenlinie unten</desc>
+								</valItem>
+								<valItem mode="add" ident="lhs">
+									<desc>Rahmenlinie links</desc>
+								</valItem>
+								<valItem mode="add" ident="rhs">
+									<desc>Rahmenlinie rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="vsides">
+									<desc>Rahmenlinie rechts und links</desc>
+								</valItem>
+								<valItem mode="add" ident="hsides">
+									<desc>Rahmenlinie oben und unten</desc>
+								</valItem>
+								<valItem mode="add" ident="border">
+									<desc>alle Seiten</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="rend" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="double">
+									<desc>doppelte Rahmenlinie</desc>
+								</valItem>
+								<valItem mode="add" ident="dotted">
+									<desc>gepunktete Rahmenlinie</desc>
+								</valItem>
+								<valItem mode="add" ident="dashed">
+									<desc>gestrichelte Rahmenlinie</desc>
+								</valItem>
+								<valItem mode="add" ident="doubledashed">
+									<desc>doppelt gestrichelte Rahmenlinie</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global [@n]-->
+						<attDef ident="n" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="visible:false">
+									<desc/>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global @n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<!--att.global.responsibility @resp-->
+						<attDef ident="resp" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="editorial">
+									<desc>editorisch gesetzte Information</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="cert" mode="delete"/>
+						<!--att.tableDecoration @cols-->
+						<attDef ident="rows" mode="delete"/>
+						<attDef ident="role" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="change" mode="change">
+					<attList>
+						<attDef ident="who" mode="change" usage="opt"/>
+						<attDef ident="when" mode="change" usage="opt"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="closer" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.facs" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="country" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+						<memberOf key="att.typed" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="creation" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global [@n + @xml:id]-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="date" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.dimensions" mode="delete"/>
+						<memberOf key="att.duration.iso" mode="delete"/>
+						<memberOf key="att.duration.w3c" mode="delete"/>
+						<memberOf key="att.editLike" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global [@n]-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition [@rendition]-->
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.typed [@type]-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="cancelled">
+									<desc>ausgefallen</desc>
+								</valItem>
+								<valItem mode="add" ident="publication">
+									<desc>Veröffentlichungsdatum</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+						<!--att.datable-->
+						<attDef ident="calendar" mode="delete"/>
+						<attDef ident="period" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="dateline" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global [@n+@xml:id]-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="n" mode="change" usage="rec">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="type:start">
+									<desc>Startzeit</desc>
+								</valItem>
+								<valItem mode="add" ident="type:end">
+									<desc>Endzeit</desc>
+								</valItem>
+								<valItem mode="add" ident="type:place">
+									<desc>Ort</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.rendition-->
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="within-the-line">
+									<desc>Selbe Zeile wie vorheriges Geschwisterelement</desc>
+								</valItem>
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="style" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="desc" mode="change">
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed [@type]-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="secret">
+									<desc>Geheimsache</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="div" mode="change">
+					<classes mode="change">
+						<memberOf key="att.divLike" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="agenda">
+									<desc>Agenda, Protokoll: Kopf</desc>
+								</valItem>
+								<valItem mode="add" ident="agenda_item">
+									<desc>Tagesordnungspunkt (agenda item)</desc>
+								</valItem>
+								<valItem mode="add" ident="agenda_item_attachment">
+									<desc>Anhang zu einem Tagesordnungspunkt (attachemnet to a agenda item)</desc>
+								</valItem>
+								<valItem mode="add" ident="agenda_sub_item">
+									<desc>Unterpunkt in einem Tagesordnungpunkt (agenda sub item)</desc>
+								</valItem>
+								<valItem mode="add" ident="attachment">
+									<desc>Anhang zu einem Protokoll (attachment to a minute)</desc>
+								</valItem>
+								<valItem mode="add" ident="chronology">
+									<desc>Chronologie</desc>
+								</valItem>
+								<valItem mode="add" ident="circulation_procedure">
+									<desc>Umlaufverfahren (circulation procedure)</desc>
+								</valItem>
+								<valItem mode="add" ident="closing_remark">
+									<desc>Abschlussbemerkung</desc>
+								</valItem>
+								<valItem mode="add" ident="combined">
+									<desc>Behandlung zweier Tagesordnungspunkte</desc>
+								</valItem>
+								<valItem mode="add" ident="combined_added"/>
+								<valItem mode="add" ident="committee">
+									<desc>Ausschuss</desc>
+								</valItem>
+								<valItem mode="add" ident="contents">
+									<desc>Inhaltsverzeichnis</desc>
+								</valItem>
+								<valItem mode="add" ident="creation">
+									<desc>Informationen zur Erstellung des Protokolls (Uhrzeiten, Ort, Datum)</desc>
+								</valItem>
+								<valItem mode="add" ident="document">
+									<desc>Dokument</desc>
+								</valItem>
+								<valItem mode="add" ident="image">
+									<desc>Bildteil</desc>
+								</valItem>
+								<valItem mode="add" ident="introductory_note">
+									<desc>Eingangsbemerkung</desc>
+								</valItem>
+								<valItem mode="add" ident="invitation">
+									<desc>Einladungstext (invitation)</desc>
+								</valItem>
+								<valItem mode="add" ident="follow-up">
+									<desc>Fortsetzung</desc>
+								</valItem>
+								<valItem mode="add" ident="letter">
+									<desc>Schreiben/Brief</desc>
+								</valItem>
+								<valItem mode="add" ident="list_participants">
+									<desc>Teilnehmer*innenliste</desc>
+								</valItem>
+								<valItem mode="add" ident="minute">
+									<desc>Protokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="note">
+									<desc>Notiz/Vermerk</desc>
+								</valItem>
+								<valItem mode="add" ident="others">
+									<desc>andere</desc>
+								</valItem>
+								<valItem mode="add" ident="rule-of-procedure">
+									<desc>Geschäftsordnung</desc>
+								</valItem>
+								<valItem mode="add" ident="timeline">
+									<desc>Zeittafel</desc>
+								</valItem>
+								<valItem mode="add" ident="template">
+									<desc>Vorlage</desc>
+								</valItem>
+								<valItem mode="add" ident="verbatim_minute">
+									<desc>Wortprotokoll</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="change" usage="rec">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="ordinary">
+									<desc>ordentlicher Tagesordnungspunkt (ordinary agenda item)</desc>
+								</valItem>
+								<valItem mode="add" ident="extraordinary">
+									<desc>außerordentlicher Tagesordnungspunkt (extraordinary agenda item)</desc>
+								</valItem>
+								<valItem mode="add" ident="no_specification">
+									<desc>Keine Angabe zum Typ des Tagesordnungspunkts (no specification to a agenda item)</desc>
+								</valItem>
+								<valItem mode="add" ident="verbatim_minutes">
+									<desc>Wortprotokoll (verbatim minute)</desc>
+								</valItem>
+								<valItem mode="add" ident="letter">
+									<desc>Brief</desc>
+								</valItem>
+								<valItem mode="add" ident="document">
+									<desc>Dokument</desc>
+								</valItem>
+								<valItem mode="add" ident="note">
+									<desc>Note</desc>
+								</valItem>
+								<valItem mode="add" ident="combined">
+									<desc>combined</desc>
+								</valItem>
+								<valItem mode="add" ident="combined_added">
+									<desc>combined added</desc>
+								</valItem>
+								<valItem mode="add" ident="ordinary_added">
+									<desc/>
+								</valItem>
+								<valItem mode="add" ident="extraordinary_added">
+									<desc>editorisch gesetzt</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.analytic-->
+						<attDef ident="ana" mode="change" usage="opt">
+							<datatype>
+								<dataRef name="string"/>
+							</datatype>
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="status:draft">
+									<desc>Entwurf</desc>
+								</valItem>
+								<valItem mode="add" ident="status:final">
+									<desc>final</desc>
+								</valItem>
+								<valItem mode="add" ident="status:discussion">
+									<desc>besprechungsreif</desc>
+								</valItem>
+								<valItem mode="add" ident="status:progress">
+									<desc>in Bearbeitung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global [@n+@xml:id]-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="editor" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.datable.w3c" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="email" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="foreign" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global [@xml:lang]-->
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="forename" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+						<memberOf key="att.personal" mode="delete"/>
+						<memberOf key="att.typed" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="front" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.responsibility @resp-->
+						<attDef ident="resp" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="editorial">
+									<desc>editorisch</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="cert" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="g" mode="change">
+					<classes mode="change">
+						<memberOf key="att.typed" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.canonical [@ref+@key]-->
+						<attDef ident="ref" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="non-breaking-space">
+									<desc>geschützes Leerzeichen (inhaltlich)</desc>
+								</valItem>
+								<valItem mode="add" ident="#typoHyphen">
+									<desc>Trennzeichen</desc>
+								</valItem>
+								<valItem mode="add" ident="safe-space">
+									<desc>geschützes Leerzeichen (technisch)</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="head" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.placement" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="sub_top_head">
+									<desc>Überschrift eines Unter-Tagesordnungspunkts</desc>
+								</valItem>
+								<valItem mode="add" ident="added">
+									<desc>editorisch ergänzte Überschrift</desc>
+								</valItem>
+								<valItem mode="add" ident="paragraph">
+									<desc>als Absatz</desc>
+								</valItem>
+								<valItem mode="add" ident="label">
+									<desc>Zusätzlicher Bezeichner</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.responsibility @resp-->
+						<attDef ident="resp" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="editorial">
+									<desc>editorisch</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="cert" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="hi" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rendition" mode="change" usage="req">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#i">
+									<desc>kursiver Text</desc>
+								</valItem>
+								<valItem mode="add" ident="#b">
+									<desc>gefetteter Text</desc>
+								</valItem>
+								<valItem mode="add" ident="#g">
+									<desc>gesperrter Text</desc>
+								</valItem>
+								<valItem mode="add" ident="#u">
+									<desc>unterstrichener Text</desc>
+								</valItem>
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="idno" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.datable.w3c [@from+@to]-->
+						<attDef ident="when" mode="delete"/>
+						<attDef ident="notBefore" mode="delete"/>
+						<attDef ident="notAfter" mode="delete"/>
+						<!--att.global @n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="reference_number">
+									<desc>Geschäftszeichen</desc>
+								</valItem>
+								<valItem mode="add" ident="shelfmark">
+									<desc>Signatur</desc>
+								</valItem>
+								<valItem mode="add" ident="isbn">
+									<desc>ISBN bei Druckbänden</desc>
+								</valItem>
+								<valItem mode="add" ident="orcid">
+									<desc>ORCID bei Personen</desc>
+								</valItem>
+								<valItem mode="add" ident="electoral_term">
+									<desc>Legislaturperiode</desc>
+								</valItem>
+								<valItem mode="add" ident="chancellor">
+									<desc>Kanzler</desc>
+								</valItem>
+								<valItem mode="add" ident="cabinet">
+									<desc>Kabinett</desc>
+								</valItem>
+								<valItem mode="add" ident="rule_of_procedure">
+									<desc>Geschäftsordnung</desc>
+								</valItem>
+								<valItem mode="add" ident="extraordinary_meeting">
+									<desc>Sondersitzung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.linking @corresp-->
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<!--att.datable-->
+						<attDef ident="calendar" mode="delete"/>
+						<attDef ident="period" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="incident" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.typed" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.responsibility @resp-->
+						<attDef ident="cert" mode="delete"/>
+						<attDef ident="resp" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="recoder">
+									<desc>Protokollant</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="index" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<!--att.global.linking @corresp-->
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<!--without class-->
+						<attDef ident="indexName" mode="change" usage="req">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="person">
+									<desc>Personenindex</desc>
+								</valItem>
+								<valItem mode="add" ident="place">
+									<desc>Ortsindex</desc>
+								</valItem>
+								<valItem mode="add" ident="org">
+									<desc>Institutionsindex</desc>
+								</valItem>
+								<valItem mode="add" ident="term">
+									<desc>Sachindex</desc>
+								</valItem>
+								<valItem mode="add" ident="ressort">
+									<desc>Ressortindex</desc>
+								</valItem>
+								<valItem mode="add" ident="law">
+									<desc>Gesetzesindex</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="institution" mode="change">
+					<classes mode="change">
+						<memberOf key="att.naming" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.canonical @key-->
+						<attDef ident="ref" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="item" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="label" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.placement" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @n-->
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="language" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="langUsage" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="lb" mode="change">
+					<classes mode="change">
+						<memberOf key="att.edition" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.spanning" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @n-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.breaking-->
+						<attDef ident="break" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="delete" ident="yes"/>
+								<valItem mode="delete" ident="maybe"/>
+								<valItem mode="add" ident="no">
+									<desc>keine Worttrennung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="editorial">
+									<desc>editorisch gesetzter Zeilenumbruch</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="licence" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.pointing @target-->
+						<attDef ident="targetLang" mode="delete"/>
+						<attDef ident="evaluate" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="list" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList mode="change" type="closed">
+								<valItem mode="add" ident="agenda">
+									<desc>Agenda der Tagesordnungspunkte</desc>
+								</valItem>
+								<valItem mode="add" ident="agenda_sub_item">
+									<desc>Unterpunkte der Tagesordnungspunkte</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="ordinary">
+									<desc>Agenda der ordentlichchen Tagesordnungspunkte</desc>
+								</valItem>
+								<valItem mode="add" ident="extraordinary">
+									<desc>Agenda der außerordentlichchen Tagesordnungspunkte</desc>
+								</valItem>
+								<valItem mode="add" ident="sub_item">
+									<desc>Agenda für Untertagesordnungspunkt</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="sort">
+									<desc>sortierte Liste</desc>
+								</valItem>
+								<valItem mode="add" ident="hyphen">
+									<desc>Liste mit Spiegelstrichen</desc>
+								</valItem>
+								<valItem mode="add" ident="bulleted">
+									<desc>Liste mit Aufzählpunkten</desc>
+								</valItem>
+								<valItem mode="add" ident="none">
+									<desc>Liste ohne Aufzählzeichen</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="listPerson" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="meeting" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="name" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.editLike" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+						<memberOf key="att.personal" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type+@subtype-->
+						<attDef ident="type" mode="change" usage="rec">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="label">
+									<desc>Labelname für Creation</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="note" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<attDef ident="targetEnd" mode="delete"/>
+						<attDef ident="anchored" mode="delete"/>
+						<!--att.global @xml:id+@n-->
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rend" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="interruption">
+									<desc>Sitzungsunterbrechung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rendition" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="type" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="comment">
+									<desc>Kommentar</desc>
+								</valItem>
+								<valItem mode="add" ident="remarkResponsibility">
+									<desc>Art der Mitarbeit</desc>
+								</valItem>
+								<valItem mode="add" ident="ressort">
+									<desc>Ressort</desc>
+								</valItem>
+								<valItem mode="add" ident="more_info">
+									<desc>weitere Informationen zur Überschrift</desc>
+								</valItem>
+								<valItem mode="add" ident="editorial_addition">
+									<desc>editorische Ergänzung</desc>
+								</valItem>
+								<valItem mode="add" ident="secret">
+									<desc>Geheimsache</desc>
+								</valItem>
+								<valItem mode="add" ident="template">
+									<desc>Vorlage</desc>
+								</valItem>
+								<valItem mode="add" ident="paragraph">
+									<desc>als Absatz</desc>
+								</valItem>
+								<valItem mode="add" ident="incident">
+									<desc>Zwischenruf</desc>
+								</valItem>
+								<valItem mode="add" ident="copyright">
+									<desc>Copyright</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.pointing @target-->
+						<attDef ident="evaluate" mode="delete"/>
+						<attDef ident="targetLang" mode="delete"/>
+						<!--att.global.analytic-->
+						<attDef ident="ana" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="status:draft">
+									<desc>Entwurf</desc>
+								</valItem>
+								<valItem mode="add" ident="status:final">
+									<desc>final</desc>
+								</valItem>
+								<valItem mode="add" ident="status:discussion">
+									<desc>besprechungsreif</desc>
+								</valItem>
+								<valItem mode="add" ident="status:progress">
+									<desc>in Bearbeitung</desc>
+								</valItem>
+								<valItem mode="add" ident="status:free_for_uncommented_publication">
+									<desc>Veröffentlichungsreif, unkommentiert</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.placement-->
+						<attDef ident="place" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="foot">
+									<desc>Fußnote</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="notesStmt" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="num" mode="change">
+					<classes mode="change">
+						<memberOf key="att.ranging" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type + @subtype-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="copy_ordinal">
+									<desc>Nummer der Ausfertigung</desc>
+								</valItem>
+								<valItem mode="add" ident="copy_total">
+									<desc>Anzahl der Ausfertigung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="object" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.global.source" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+						<memberOf key="att.declaring" mode="delete"/>
+						<memberOf key="att.docStatus" mode="delete"/>
+						<memberOf key="att.canonical" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="typoscript">
+									<desc></desc>
+								</valItem>
+								<valItem mode="add" ident="audio">
+									<desc></desc>
+								</valItem>
+								<valItem mode="add" ident="transcription">
+									<desc></desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="orgName" mode="change">
+					<attList>
+						<!--att.naming-->
+						<attDef ident="role" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="institution">
+									<desc>veröffentlichende Institution</desc>
+								</valItem>
+								<valItem mode="add" ident="department">
+									<desc>Abteilung</desc>
+								</valItem>
+								<valItem mode="add" ident="project">
+									<desc>Projekt</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="nymRef" mode="delete"/>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="abb">
+									<desc>abgekürzter Name</desc>
+								</valItem>
+								<valItem mode="add" ident="ressort">
+									<desc>Ressort</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+						<!--att.global @xml:lang-->
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<!--att.personal-->
+						<attDef ident="sort" mode="delete"/>
+						<attDef ident="full" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="abb">
+									<desc>Abgekürzte Form</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="orig" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="p" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:lang-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="rend" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="interruption">
+									<desc>Sitzungsunterbrechung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="#et">
+									<desc>eingerückter Text</desc>
+								</valItem>
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="particDesc" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.facs" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.responsibility-->
+						<attDef ident="resp" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="persName" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.editLike" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.personal-->
+						<attDef ident="sort" mode="delete"/>
+						<!--att.typed-->
+						<attDef ident="type" mode="delete"/>
+						<attDef ident="subtype" mode="delete"/>
+						<!--att.naming-->
+						<attDef ident="role" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="speaker">
+									<desc>Sprecher</desc>
+								</valItem>
+								<valItem mode="add" ident="mentioned">
+									<desc>erwähnt</desc>
+								</valItem>
+								<valItem mode="add" ident="silent">
+									<desc>stummer Teilnehmer*in</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="nymRef" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="person" mode="change">
+					<classes mode="change">
+						<memberOf key="att.editLike" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.naming @role+@nymRef-->
+						<attDef ident="role" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="chancellor">
+									<desc>Bundeskanzler</desc>
+								</valItem>
+								<valItem mode="add" ident="minister">
+									<desc>Bundesminister</desc>
+								</valItem>
+								<valItem mode="add" ident="head_presidential_office">
+									<desc>Chef des Bundespräsidialamtes</desc>
+								</valItem>
+								<valItem mode="add" ident="head_chancellery">
+									<desc>Chef des Bundeskanzleramtes</desc>
+								</valItem>
+								<valItem mode="add" ident="head_federal-press-office">
+									<desc>Chef des Presse- und Informationsamtes</desc>
+								</valItem>
+								<valItem mode="add" ident="guest">
+									<desc>Gast</desc>
+								</valItem>
+								<valItem mode="add" ident="parliamentary_secretary">
+									<desc>Parlamentarischer Staatssekretär</desc>
+								</valItem>
+								<valItem mode="add" ident="state_secretary">
+									<desc>Staatssekretär</desc>
+								</valItem>
+								<valItem mode="add" ident="recorder">
+									<desc>Protokollant</desc>
+								</valItem>
+								<valItem mode="add" ident="unknown">
+									<desc>unbekannte Rolle</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global @xml:id-->
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.linking @corresp-->
+						<attDef ident="corresp" mode="change" usage="rec"/>
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<!--att.global.responsibility @cert-->
+						<attDef ident="resp" mode="delete"/>
+						<attDef ident="cert" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="unknown">
+									<desc/>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--without class-->
+						<attDef ident="sex" mode="delete"/>
+						<attDef ident="age" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="placeName" mode="change">
+					<classes mode="change">
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.w3c" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.editLike" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.canonical [@key]-->
+						<attDef ident="ref" mode="delete"/>
+						<!--att.naming-->
+						<attDef ident="role" mode="delete"/>
+						<attDef ident="nymRef" mode="delete"/>
+						<!--att.personal-->
+						<attDef ident="sort" mode="delete"/>
+						<attDef ident="full" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="abb">
+									<desc>Abgekürzte Form</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.typed @type-->
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="type" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="building">
+									<desc>Gebäude</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="pubPlace" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="quote" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="inline">
+									<desc>Inlinezitat</desc>
+								</valItem>
+								<valItem mode="add" ident="block">
+									<desc>Blockzitat</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="ref" mode="change">
+					<classes mode="change">
+						<memberOf key="att.cReferencing" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.internetMedia" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.pointing @target-->
+						<attDef ident="evaluate" mode="delete"/>
+						<attDef ident="targetLang" mode="delete"/>
+						<!--att.global.linking @corresp-->
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="introduction">
+									<desc>Verweistyp = Einleitung</desc>
+								</valItem>
+								<valItem mode="add" ident="attachment">
+									<desc>Verweistyp = Dokumentenanhang</desc>
+								</valItem>
+								<valItem mode="add" ident="rules-procedure">
+									<desc>Verweistyp = GOBReg</desc>
+								</valItem>
+								<valItem mode="add" ident="images">
+									<desc>Verweistyp = Bildteil</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="relatedItem" mode="change">
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type+@subtype-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList mode="change" type="semi">
+								<valItem mode="add" ident="print">
+									<desc>Verweis auf gedruckte Version</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="resp" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.cannonical @ref-->
+						<attDef ident="key" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="respStmt" mode="change">
+					<attList>
+						<attDef ident="n" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="project">
+									<desc>Verantwortlichkeit: Fachwissenschaft/Träger</desc>
+								</valItem>
+								<valItem mode="add" ident="dh">
+									<desc>Verantwortlichkeit: Digital Humanities</desc>
+								</valItem>
+								<valItem mode="add" ident="external_service">
+									<desc>Verantwortlichkeit: externe Dienstleister</desc>
+								</valItem>
+								<valItem mode="add" ident="role:main">
+									<desc>Hauptbearbeiter (Buchedition)</desc>
+								</valItem>
+								<valItem mode="add" ident="role:assisted">
+									<desc>Bearbeiter (Buchedition)</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="revisionDesc" mode="change">
+					<classes mode="change">
+						<memberOf key="xml:space" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.facs" mode="delete"/>
+						<memberOf key="att.global.change" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.global.source" mode="delete"/>
+						<memberOf key="att.docStatus" mode="delete"/>
+					</classes>
+					<!--att.global @n-->
+					<attList>
+						<attDef ident="n" mode="change" usage="req">
+							<valList mode="change" type="semi">
+								<valItem mode="add" ident="version:final">
+									<desc>kommentiert veröffentlicht</desc>
+								</valItem>
+								<valItem mode="add" ident="version:draft">
+									<desc>Entwurf</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="row" mode="change">
+					<attList>
+						<!--att.tableDecoration @row-->
+						<attDef ident="rows" mode="delete"/>
+						<attDef ident="cols" mode="delete"/>
+						<attDef ident="role" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="label">
+									<desc>Erste Zeile enthält Überschriften</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="rs" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @xml:id-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<!--att.canonical @key-->
+						<attDef ident="ref" mode="delete"/>
+						<!--att.global.linking @corresp-->
+						<attDef ident="synch" mode="delete"/>
+						<attDef ident="sameAs" mode="delete"/>
+						<attDef ident="copyOf" mode="delete"/>
+						<attDef ident="next" mode="delete"/>
+						<attDef ident="prev" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<attDef ident="select" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="person">
+									<desc>Person</desc>
+								</valItem>
+								<valItem mode="add" ident="org">
+									<desc>Institution</desc>
+								</valItem>
+								<valItem mode="add" ident="place">
+									<desc>Ort</desc>
+								</valItem>
+								<valItem mode="add" ident="term">
+									<desc>Sachbegriff</desc>
+								</valItem>
+								<valItem mode="add" ident="bibl">
+									<desc>Literaturtitel</desc>
+								</valItem>
+								<valItem mode="add" ident="law">
+									<desc>Gesetz</desc>
+								</valItem>
+								<valItem mode="add" ident="abbr">
+									<desc>Abkürzung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="abb">
+									<desc>abgekürzte Form</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.naming-->
+						<attDef ident="nymRef" mode="delete"/>
+						<attDef ident="role" mode="change" usage="rec">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="silent">
+									<desc>stumme*r Teilnehmer*in</desc>
+								</valItem>
+								<valItem mode="add" ident="speaker">
+									<desc>Sprecher*in</desc>
+								</valItem>
+								<valItem mode="add" ident="mentioned">
+									<desc>erwähnt</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="salute" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="seg" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.metrical" mode="delete"/>
+						<memberOf key="att.notated" mode="delete"/>
+						<memberOf key="att.segLike" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.datcat @targetDatcat-->
+						<attDef ident="datcat" mode="delete" ns="http://www.isocat.org/ns/dcr"/>
+						<attDef ident="valueDatcat" mode="delete" ns="http://www.isocat.org/ns/dcr"/>
+						<!--att.typed-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="comment">
+									<desc>Kommentar</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="understanding">
+									<desc>Worterklärung, Verständnishilfe</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="series" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="signed" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.global.rendition-->
+						<attDef ident="style" mode="delete"/>
+						<attDef ident="rend" mode="delete"/>
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="within-the-line">
+									<desc>Selbe Zeile wie vorheriges Geschwisterelement</desc>
+								</valItem>
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="sourceDesc" mode="change">
+					<attList>
+						<attDef ident="n" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="source:original">
+									<desc>Datei basiert auf originalem Protokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="source:print">
+									<desc>Datei basiert auf Printversion</desc>
+								</valItem>
+								<valItem mode="add" ident="source:print_original">
+									<desc>Datei basiert auf Printversion und originalem Protokoll</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="supplied" mode="change">
+					<attList>
+						<!--att.global.responsibility @cert+@resp-->
+						<attDef ident="cert" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="high">
+									<desc>hohe Wahrscheinlichkeit</desc>
+								</valItem>
+								<valItem mode="add" ident="medium">
+									<desc>mittlere Wahrscheinlichkeit</desc>
+								</valItem>
+								<valItem mode="add" ident="low">
+									<desc>geringe Wahrscheinlichkeit</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="surname" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.global" mode="delete"/>
+						<memberOf key="att.naming" mode="delete"/>
+						<memberOf key="att.personal" mode="delete"/>
+						<memberOf key="att.typed" mode="delete"/>
+					</classes>
+				</elementSpec>
+				<elementSpec ident="table" mode="change">
+					<attList>
+						<!--att.tableDecoration @cols+@rows-->
+						<attDef ident="role" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="TEI" mode="change">
+					<classes mode="change">
+						<memberOf key="att.typed" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global.analytic-->
+						<attDef ident="ana" mode="change" usage="opt">
+							<datatype>
+								<dataRef name="string"/>
+							</datatype>
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="status:progress_editing">
+									<desc>textkrische Bearbeitung (textcritical editing)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:progress_commenting">
+									<desc>in Kommentierung (commenting)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:registered">
+									<desc>Texterfassung (registered)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:uncommented">
+									<desc>unkommentierte Veröffentlichung (uncommented)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:final">
+									<desc>kommentiert veröffentlicht (final)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:migrated">
+									<desc>migriert</desc>
+								</valItem>
+								<valItem mode="add" ident="status:text_collation">
+									<desc>Textkollationierung (status:text_collation)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:proofreading">
+									<desc>im Schlusskor-rektorat (status:proofreading) </desc>
+								</valItem>
+								<valItem mode="add" ident="status:ready_for_publication">
+									<desc>fertig für Veröffentlichung (status:ready_for_publication)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:publication_process">
+									<desc>im Publikations-prozess (status:publication_process)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:draft">
+									<desc>Entwurf (status:draft)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:progress">
+									<desc>in Bearbeitung (status:progress)</desc>
+								</valItem>
+								<valItem mode="add" ident="status:no_publication">
+									<desc>keine Veröffentlichung, Wartemodus  (status:no_publication)</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global.linking @corresp+@synch+@sameAs+@copyOf+@next+@prev-->
+						<attDef ident="select" mode="delete"/>
+						<attDef ident="exclude" mode="delete"/>
+						<!--att.gaijiProp @name+@value-->
+						<attDef ident="version" mode="delete"/>
+						<!--Non TEI-->
+						<attDef ident="doctype" mode="add" usage="rec" ns="http://www.telota.de">
+							<datatype>
+								<dataRef name="string"/>
+							</datatype>
+							<valList type="semi" mode="change">
+								<valItem ident="minute"/>
+								<valItem ident="committee"/>
+								<valItem ident="letter"/>
+								<valItem ident="verbatim_minute"/>
+								<valItem ident="document"/>
+								<valItem ident="note"/>
+								<valItem ident="introduction"/>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="time" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.dimensions" mode="delete"/>
+						<memberOf key="att.editLike" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="subtype" mode="delete"/>
+						<attDef ident="type" mode="change" usage="rec">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="start">
+									<desc>Start der Sitzung</desc>
+								</valItem>
+								<valItem mode="add" ident="end">
+									<desc>Ende der Sitzung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="when" mode="change" usage="rec"/>
+						<!--att.datable-->
+						<attDef ident="calendar" mode="delete"/>
+						<attDef ident="period" mode="delete"/>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="title" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.datable" mode="delete"/>
+						<memberOf key="att.datable.iso" mode="delete"/>
+						<memberOf key="att.datable.custom" mode="delete"/>
+						<memberOf key="att.datable.w3c" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global @n-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type + @subtype-->
+						<attDef ident="type" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="volume">
+									<desc>Untertitel für die Bandangabe</desc>
+								</valItem>
+								<valItem mode="add" ident="year">
+									<desc>Untertitel für die Jahresangabe</desc>
+								</valItem>
+								<valItem mode="add" ident="subject">
+									<desc>Betreff/Titel</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<!--att.global @rendition-->
+						<attDef ident="rendition" mode="change" usage="opt">
+							<valList type="semi" mode="change">
+								<valItem mode="add" ident="#right">
+									<desc>Textausrichtung rechts</desc>
+								</valItem>
+								<valItem mode="add" ident="#center">
+									<desc>Textausrichtung mittig</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="text" mode="change">
+					<classes mode="change">
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.global.responsibility" mode="delete"/>
+						<memberOf key="att.written" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type + @subtype-->
+						<attDef ident="type" mode="change" usage="req">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="minute">
+									<desc>Protokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="committee">
+									<desc>Ausschuss/Kabinettsausschuss</desc>
+								</valItem>
+								<valItem mode="add" ident="attachment">
+									<desc>Anhang</desc>
+								</valItem>
+								<valItem mode="add" ident="document">
+									<desc>Dokument</desc>
+								</valItem>
+								<valItem mode="add" ident="letter">
+									<desc>Brief, Schreiben</desc>
+								</valItem>
+								<valItem mode="add" ident="note">
+									<desc>Vermerk, Notiz</desc>
+								</valItem>
+								<valItem mode="add" ident="verbatim_minute">
+									<desc>Wortprotokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="chronology">
+									<desc>Zeittafel Band</desc>
+								</valItem>
+								<valItem mode="add" ident="image">
+									<desc>Bildteil Band</desc>
+								</valItem>
+								<valItem mode="add" ident="introduction">
+									<desc>Einleitung Band</desc>
+								</valItem>
+								<valItem mode="add" ident="rule-of-procedure">
+									<desc>Geschäftsordnung</desc>
+								</valItem>
+								<valItem mode="add" ident="list_participants">
+									<desc>Teilnehmerliste Band</desc>
+								</valItem>
+								<valItem mode="add" ident="editorial">
+									<desc>redaktionelle Seite</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="change" usage="opt">
+							<valList type="closed" mode="change">
+								<valItem mode="add" ident="minute">
+									<desc>Protokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="document">
+									<desc>Dokument</desc>
+								</valItem>
+								<valItem mode="add" ident="letter">
+									<desc>Brief, Schreiben</desc>
+								</valItem>
+								<valItem mode="add" ident="note">
+									<desc>Vermerk, Notiz ...</desc>
+								</valItem>
+								<valItem mode="add" ident="verbatim_minute">
+									<desc>Wortprotokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="others">
+									<desc>Wortprotokoll</desc>
+								</valItem>
+								<valItem mode="add" ident="cancelled">
+									<desc>ausgefallen</desc>
+								</valItem>
+								<valItem mode="add" ident="extraordinary_meeting">
+									<desc>Sondersitzung</desc>
+								</valItem>
+							</valList>
+						</attDef>
+					</attList>
+				</elementSpec>
+				<elementSpec ident="term" mode="change">
+					<classes mode="change">
+						<memberOf key="att.canonical" mode="delete"/>
+						<memberOf key="att.cReferencing" mode="delete"/>
+						<memberOf key="att.global.analytic" mode="delete"/>
+						<memberOf key="att.global.linking" mode="delete"/>
+						<memberOf key="att.global.rendition" mode="delete"/>
+						<memberOf key="att.pointing" mode="delete"/>
+						<memberOf key="att.sortable" mode="delete"/>
+					</classes>
+					<attList>
+						<!--att.global-->
+						<attDef ident="xml:id" mode="delete"/>
+						<attDef ident="n" mode="delete"/>
+						<attDef ident="xml:lang" mode="delete"/>
+						<attDef ident="xml:base" mode="delete"/>
+						<attDef ident="xml:space" mode="delete"/>
+						<!--att.typed @type-->
+						<attDef ident="type" mode="change" usage="opt">
+							<datatype>
+								<dataRef key="teidata.enumerated"/>
+							</datatype>
+							<valList type="closed" mode="change">
+								<valItem ident="copy">
+									<desc>Bei Mehrfach-Indexierung muss der Term nach der TEI wiederholt werden. Aus diesem Grund wird copy gesetzt, um anzuzeigen, dass es eine Kopie des ersten Terms ist.</desc>
+								</valItem>
+							</valList>
+						</attDef>
+						<attDef ident="subtype" mode="delete"/>
+					</attList>
+				</elementSpec>
+			</schemaSpec>
+		</body>
+	</text>
+</TEI>
