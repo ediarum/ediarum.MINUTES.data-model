@@ -1,3 +1,3 @@
 # ediarum.MINUTES.data-model
 
-Coming soon (current development status see dev-branch).
+For current developments, please see dev-branch
