@@ -1,6 +1,6 @@
 # ediarum.MINUTES.data-model
 
-**WIP - work in progress (Nov 2023)**
+**WIP - work in progress (Feb 2026)**
 
 This repository contains the definition of the ediarum.MINUTES data model as ODD. It is based on the ediarum.BASE.data-model (in terms of content). 
 
@@ -15,7 +15,7 @@ The "dist" folder contains:
 
 ## References
 
-Ediarum.BASE.data-model: <https://github.com/ediarum/ediarum.BASE.data-model/tree/dev>
+ediarum.MINUTES - Editionsrichtlinien: <https://www.ediarum.org/docs/ediarum.MINUTES.data-model/index.html>
 
 
 
