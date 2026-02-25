@@ -15,7 +15,5 @@ The "dist" folder contains:
 
 ## References
 
-ediarum.MINUTES - Editionsrichtlinien: <https://www.ediarum.org/docs/ediarum.MINUTES.data-model/index.html>
-
-
+<a href="https://www.ediarum.org/docs/ediarum.MINUTES.data-model/index.html" target="_blank">ediarum.MINUTES - Editionsrichtlinien</a>.
 
